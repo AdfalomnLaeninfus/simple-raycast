@@ -15,9 +15,11 @@ void Player::update(float dt)
     spd.x += (keys[SDL_SCANCODE_UP] - keys[SDL_SCANCODE_DOWN]) * cos(rotate) * vel * dt;
     spd.y += (keys[SDL_SCANCODE_UP] - keys[SDL_SCANCODE_DOWN]) * sin(rotate) * vel * dt;
     
-    if (map_collision(position.x + spd.x, position.y) == 0)
+    if (map_collision(position.x + spd.x - 1, position.y - 1) == 0 && map_collision(position.x + spd.x + 1, position.y - 1) == 0 &&
+        map_collision(position.x + spd.x + 1, position.y + 1) == 0 && map_collision(position.x + spd.x - 1, position.y + 1) == 0)
         position.x += spd.x;
-    if (map_collision(position.x, position.y + spd.y) == 0)
+    if (map_collision(position.x - 1, position.y + spd.y - 1) == 0 && map_collision(position.x + 1, position.y + spd.y - 1) == 0 &&
+        map_collision(position.x + 1, position.y + spd.y + 1) == 0 && map_collision(position.x - 1, position.y + spd.y + 1) == 0)
         position.y += spd.y;
 
     for (int i = 0; i <= RAYS; i++)

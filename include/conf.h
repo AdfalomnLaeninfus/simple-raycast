@@ -1,6 +1,7 @@
 #ifndef CONF_H_
 #define CONF_H_
 
+#define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 
 #define WIDTH 320
