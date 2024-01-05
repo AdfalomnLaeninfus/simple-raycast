@@ -10,7 +10,10 @@ class Player
 
         SDL_FPoint getPosition() const;
 
-        void update( const float dt, const Uint8 *keys, uint8_t *map );
+        int getRayLength();
+        int getRay( const int index );
+
+        void update( const float dt, const Uint8 *keys, const uint8_t *map );
         void render( SDL_Renderer *renderer );
 
     private:
@@ -21,11 +24,11 @@ class Player
         float rotate_vel = 180;
         std::vector<float> rays;
 
-        bool canMove( const uint8_t *map, float dirX, float dirY, int offset );
+        bool canMove( const uint8_t *map, float dirX, float dirY );
 
-        void updatePosition( const float dt, const uint8_t *map );
+        void updatePosition( const float dt, const uint8_t *map, const Uint8 *keys );
         void updateRotation( const float dt, const Uint8 *keys );
-        void updateRays();
+        void updateRays( const uint8_t *map );
 
         void renderPlayer( SDL_Renderer *renderer );
         void renderRays( SDL_Renderer *renderer );
