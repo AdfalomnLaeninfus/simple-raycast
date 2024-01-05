@@ -7,7 +7,7 @@ const uint8_t map_collision(const uint8_t *map, int x, int y)
     return map[y * MAP_WIDTH + x];
 }
 
-void map_draw_walls( SDL_Renderer *renderer, Color_t wallColor )
+void map_draw_walls( SDL_Renderer *renderer, Color_t wallColor, const uint8_t *map )
 {
     SDL_SetRenderDrawColor( renderer, wallColor.r, wallColor.g, wallColor.b, wallColor.a );
 
