@@ -34,9 +34,11 @@ int main(int argc, char* argv[])
     
     Player player( ( SDL_FPoint ) { 4, 4 }, 0.0 );
 
-    Uint64 time;
-    Uint64 lastTime;
-    Uint64 timeDiference;
+    Uint64 currentTime = 0;
+    Uint64 startTime = 0;
+    Uint64 lastTime = 0;
+    Uint64 timeDifference = 0;
+    float deltaTime = 0.0f;
 
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
 
@@ -54,6 +56,7 @@ int main(int argc, char* argv[])
     bool is_running = true;
     while( is_running )
     {
+        startTime = SDL_GetTicks64();
         while( SDL_PollEvent( &event ) )
         {
             switch ( event.type )
@@ -63,12 +66,6 @@ int main(int argc, char* argv[])
                     break;
             }
         }
-
-        time = SDL_GetPerformanceCounter();
-        timeDiference = time - lastTime;
-        lastTime = time;
-
-        float deltaTime = (float) timeDiference / SDL_GetPerformanceFrequency();
 
         player.update( deltaTime, keys, map );
 
@@ -80,7 +77,12 @@ int main(int argc, char* argv[])
 
         player.render( renderer );
 
+        currentTime = SDL_GetTicks64();
+        
         SDL_RenderPresent( renderer );
+
+        deltaTime = (currentTime - startTime) * 0.02f;
+        startTime = currentTime;
     }
 
     SDL_DestroyRenderer( renderer );
