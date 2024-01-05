@@ -9,7 +9,7 @@ const uint8_t map_collision(const uint8_t *map, int x, int y)
 
 void map_draw_walls( SDL_Renderer *renderer, Color_t wallColor )
 {
-    SDL_SetRenderDrawColor( renderer, whiteColor.r, whiteColor.g, whiteColor.b, whiteColor.a );
+    SDL_SetRenderDrawColor( renderer, wallColor.r, wallColor.g, wallColor.b, wallColor.a );
 
     for (int y = 0; y < MAP_HEIGHT; y++)
         for (int x = 0; x < MAP_HEIGHT; x++)
