@@ -22,9 +22,11 @@
     #define MAP_WIDTH 20
     #define MAP_HEIGHT 20
 
-    #define SCALE 2
-    #define RAYS 320
+    #define WALL_SCALE 2
+    #define MAX_RAYS 320
 
-    #define DEG2RAD(r) r * M_PI / 180
+    #define PI_DIV_180 0.01745329251994329576923690
+
+    #define DEG2RAD(r) r * PI_DIV_180
 
 #endif
