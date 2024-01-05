@@ -19,7 +19,7 @@ bool Player::canMove( const uint8_t *map, float dirX, float dirY )
 
     return (
         checkCollision( -1, -1 ) && checkCollision( 1, -1 ) &&
-        checkCollision( -1, 1 ) && checkCollision( 1, 1 )
+        checkCollision( -1, 1 )  && checkCollision( 1, 1 )
     );
 }
 
@@ -33,37 +33,37 @@ void Player::updateRays( const uint8_t *map )
     }
 }
 
-void Player::updatePosition( const float dt, const uint8_t *map, const Uint8 *keys )
+void Player::updatePosition( const float deltaTime, const uint8_t *map, const Uint8 *keys )
 {
     int verticalInput = keys[SDL_SCANCODE_UP] - keys[SDL_SCANCODE_DOWN];
     int horizontalInput = keys[SDL_SCANCODE_UP] - keys[SDL_SCANCODE_DOWN];
 
     SDL_FPoint speed = {
-        (verticalInput) * cos(rotate) * velocity * dt,
-        (horizontalInput) * sin(rotate) * velocity * dt
+        (verticalInput) * cos(rotate) * velocity * deltaTime,
+        (horizontalInput) * sin(rotate) * velocity * deltaTime
     };
 
     if ( canMove( map, speed.x, -1 ) && canMove( map, speed.x, 1 ) ) position.x += speed.x;
     if ( canMove( map, speed.y, -1 ) && canMove( map, speed.y, 1 ) ) position.y += speed.y;
 }
 
-void Player::updateRotation( const float dt, const Uint8 *keys )
+void Player::updateRotation( const float deltaTime, const Uint8 *keys )
 {
-    rotate += (keys[SDL_SCANCODE_RIGHT] - keys[SDL_SCANCODE_LEFT]) * DEG2RAD(maxRotation) * dt;
+    rotate += (keys[SDL_SCANCODE_RIGHT] - keys[SDL_SCANCODE_LEFT]) * DEG2RAD(maxRotation) * deltaTime;
 }
 
-void Player::update( const float dt, const Uint8* keys, const uint8_t *map )
+void Player::update( const float deltaTime, const Uint8* keys, const uint8_t *map )
 {
-    updateRotation( dt, keys );
-    updatePosition( dt, map, keys );
+    updateRotation( deltaTime, keys );
+    updatePosition( deltaTime, map, keys );
     updateRays( map );
 }
 
 void Player::renderPlayer( SDL_Renderer *renderer )
 {
     SDL_FRect playerRect = {
-        position.x * WALL_SCALE - WALL_SCALE / 2,
-        position.y * WALL_SCALE - WALL_SCALE / 2,
+        position.x * WALL_SCALE - WALL_SCALE * 0.5f,
+        position.y * WALL_SCALE - WALL_SCALE * 0.5f,
         WALL_SCALE, WALL_SCALE
     };
 

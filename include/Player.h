@@ -26,8 +26,8 @@ class Player
 
         bool canMove( const uint8_t *map, float dirX, float dirY );
 
-        void updatePosition( const float dt, const uint8_t *map, const Uint8 *keys );
-        void updateRotation( const float dt, const Uint8 *keys );
+        void updatePosition( const float deltaTime, const uint8_t *map, const Uint8 *keys );
+        void updateRotation( const float deltaTime, const Uint8 *keys );
         void updateRays( const uint8_t *map );
 
         void renderPlayer( SDL_Renderer *renderer );
