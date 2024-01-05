@@ -24,6 +24,7 @@
 
     #define WALL_SCALE 2
     #define MAX_RAYS 320
+    #define MAX_STEPS 20
 
     #define PI_DIV_180 0.01745329251994329576923690
 
