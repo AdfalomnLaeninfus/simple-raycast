@@ -8,7 +8,7 @@ class Player
     public:
         Player(SDL_FPoint position, float rotate);
 
-        void update(float dt);
+        void update(const float dt, const Uint8 *keys);
         void render(SDL_Renderer* renderer);
 
         std::vector<float> rays;
