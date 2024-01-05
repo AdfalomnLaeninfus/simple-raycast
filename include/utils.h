@@ -14,6 +14,7 @@
     #include "map.h"
     #include "player.h"
     #include "raycast.h"
+    #include "color.h"
 
     #define WIDTH 320
     #define HEIGHT 240
