@@ -3,6 +3,6 @@
 
     #include "utils.h"
 
-    extern const uint8_t map_collision(int x, int y);
+    extern const uint8_t map_collision(const uint8_t *map, int x, int y);
 
 #endif
