@@ -12,8 +12,8 @@
     #include <iostream>
     
     #include "map.h"
-    #include "Player.h"
-    #include "Raycast.h"
+    #include "player.h"
+    #include "raycast.h"
 
     #define WIDTH 320
     #define HEIGHT 240
