@@ -36,7 +36,7 @@ void raycast_draw_rays( Player *player, SDL_Renderer *renderer ) {
     for ( int i = 0; i <= player->getRayLength(); i++ )
     {
         int colorIntensity = 128 / player->getRay( i ) + 25;
-        int rayIndex = i - RAYS / 2;
+        int rayIndex = i - MAX_RAYS / 2;
 
         float halfHeight = HEIGHT * 0.5f;
         float halfColorIntensity = colorIntensity * 0.5f;

@@ -39,8 +39,8 @@ void Player::updatePosition( const float dt, const uint8_t *map, const Uint8 *ke
     int horizontalInput = keys[SDL_SCANCODE_UP] - keys[SDL_SCANCODE_DOWN];
 
     SDL_FPoint speed = {
-        (verticalInput) * cos(rotate) * vel * dt,
-        (horizontalInput) * sin(rotate) * vel * dt
+        (verticalInput) * cos(rotate) * velocity * dt,
+        (horizontalInput) * sin(rotate) * velocity * dt
     };
 
     if ( canMove( map, speed.x, -1 ) && canMove( map, speed.x, 1 ) ) position.x += speed.x;
@@ -49,12 +49,11 @@ void Player::updatePosition( const float dt, const uint8_t *map, const Uint8 *ke
 
 void Player::updateRotation( const float dt, const Uint8 *keys )
 {
-    rotate += (keys[SDL_SCANCODE_RIGHT] - keys[SDL_SCANCODE_LEFT]) * DEG2RAD(rotate_vel) * dt;
+    rotate += (keys[SDL_SCANCODE_RIGHT] - keys[SDL_SCANCODE_LEFT]) * DEG2RAD(maxRotation) * dt;
 }
 
 void Player::update( const float dt, const Uint8* keys, const uint8_t *map )
 {
-
     updateRotation( dt, keys );
     updatePosition( dt, map, keys );
     updateRays( map );

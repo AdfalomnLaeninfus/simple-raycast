@@ -20,8 +20,8 @@ class Player
         SDL_FPoint position;
 
         float rotate;
-        float vel = 6;
-        float rotate_vel = 180;
+        float velocity = 6;
+        float maxRotation = 180;
         std::vector<float> rays;
 
         bool canMove( const uint8_t *map, float dirX, float dirY );
