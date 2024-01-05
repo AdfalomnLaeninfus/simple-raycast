@@ -35,7 +35,7 @@ float Raycast( SDL_FPoint position, float rotate, const uint8_t *map )
 void raycast_draw_rays( Player *player, SDL_Renderer *renderer ) {
     for ( int i = 0; i <= player->getRayLength(); i++ )
     {
-        int colorIntensity = 128 / player->getRay( i ) + 25;
+        int colorIntensity = static_cast<int>( 128.0f / player->getRay( i ) ) + 25;
         int rayIndex = i - MAX_RAYS * 0.5f;
 
         float halfHeight = HEIGHT * 0.5f;
