@@ -26,3 +26,14 @@ float Raycast(SDL_FPoint position, float rotate, const uint8_t *map)
     float dy = position.y - pos.y;
     return sqrt(dx*dx + dy*dy);
 }
+
+void raycast_draw_rays( Player player, SDL_Renderer *renderer ) {
+    for (int i = 0; i <= player.rays.size(); i++)
+    {
+        int s = 128 / player.rays[i] + 25;
+        int id = i - RAYS / 2;
+
+        SDL_SetRenderDrawColor(renderer, s + 25, s + 25, s + 25, 255);
+        SDL_RenderDrawLine(renderer, i, HEIGHT / 2 - s / 2, i, HEIGHT / 2 + s / 2);
+    }
+}
