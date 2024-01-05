@@ -1,4 +1,4 @@
-#include <Raycast.h>
+#include <raycast.h>
 
 float Raycast(SDL_FPoint position, float rotate)
 {

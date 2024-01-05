@@ -1,4 +1,5 @@
-#include <Player.h>
+#include <utils.hpp>
+#include <player.h>
 
 Player::Player(SDL_FPoint position, float rotate)
 {

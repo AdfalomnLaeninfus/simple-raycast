@@ -1,10 +1,5 @@
-#ifndef PLAYER_HPP_
-#define PLAYER_HPP_
-
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <conf.h>
+#ifndef _PLAYER_H_
+#define _PLAYER_H_
 
 #include <Raycast.h>
 
@@ -19,10 +14,10 @@ class Player
         std::vector<float> rays;
     private:
         SDL_FPoint position;
-        float rotate;
 
-        float rotate_vel = 180;
+        float rotate;
         float vel = 6;
+        float rotate_vel = 180;
 };
 
 #endif
