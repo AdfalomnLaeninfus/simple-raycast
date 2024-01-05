@@ -32,7 +32,7 @@ float Raycast( SDL_FPoint position, float rotate, const uint8_t *map )
     return sqrt( directionXPow + directionYPow );
 }
 
-void raycast_draw_rays( Player player, SDL_Renderer *renderer ) {
+void raycast_draw_rays( Player *player, SDL_Renderer *renderer ) {
     for ( int i = 0; i <= player.getRayLength(); i++ )
     {
         int colorIntensity = 128 / player.getRay( i ) + 25;
