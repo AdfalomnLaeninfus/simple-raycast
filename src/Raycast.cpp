@@ -1,39 +1,60 @@
+#include <utils.h>
 #include <raycast.h>
 
-float Raycast(SDL_FPoint position, float rotate, const uint8_t *map)
+float Raycast( SDL_FPoint position, float rotate, const uint8_t *map )
 {
-    SDL_FPoint pos = position;
-    float c = cos(rotate);
-    float s = sin(rotate);
+    SDL_FPoint positionOffset = position;
+    float rotateCosAngle = cos(rotate);
+    float rotateSinAngle = sin(rotate);
 
     for (int i = 0; i < MAX_STEPS; i++)
     {
-        pos.x += c;
-        pos.y += s;
+        positionOffset.x += c;
+        positionOffset.y += s;
 
-        if (map_collision(map, pos.x, pos.y))
+        if ( map_collision( map, positionOffset.x, positionOffset.y ) )
         {
-            while (map_collision(map, pos.x, pos.y))
+            while ( map_collision( map, pos.x, pos.y ) )
             {
-                pos.x -= c * 0.01;
-                pos.y -= s * 0.01;
+                positionOffset.x -= rotateCosAngle * 0.01;
+                positionOffset.y -= rotateSinAngle * 0.01;
             }
+
             break;
         }
     }
 
-    float dx = position.x - pos.x;
-    float dy = position.y - pos.y;
-    return sqrt(dx*dx + dy*dy);
+    float directionX = position.x - positionOffset.x;
+    float directionY = position.y - positionOffset.y;
+    float directionXPowTwo = directionX * directionX;
+    float directionYPowTwo = directionY * directionY;
+
+    return sqrt( directionXPow + directionYPow );
 }
 
 void raycast_draw_rays( Player player, SDL_Renderer *renderer ) {
-    for (int i = 0; i <= player.rays.size(); i++)
+    for ( int i = 0; i <= player.getRayLength(); i++ )
     {
-        int s = 128 / player.rays[i] + 25;
-        int id = i - RAYS / 2;
+        int colorIntensity = 128 / player.getRay( i ) + 25;
+        int rayIndex = i - RAYS / 2;
 
-        SDL_SetRenderDrawColor(renderer, s + 25, s + 25, s + 25, 255);
-        SDL_RenderDrawLine(renderer, i, HEIGHT / 2 - s / 2, i, HEIGHT / 2 + s / 2);
+        float halfHeight = HEIGHT * 0.5f;
+        float halfColorIntensity = colorIntensity * 0.5f;
+
+        Color_t color = {
+            static_cast<int>( colorIntensity + 25 ),
+            static_cast<int>( colorIntensity + 25 ),
+            static_cast<int>( colorIntensity + 25 ),
+            255
+        };
+
+        SDL_SetRenderDrawColor( renderer,
+            color.r, color.g, color.b, color.a );
+
+        SDL_RenderDrawLine(
+            renderer,
+            i, halfHeight - halfColorIntensity,
+            i, halfHeight + halfColorIntensity
+        );
     }
 }
