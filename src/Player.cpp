@@ -62,8 +62,8 @@ void Player::update( const float deltaTime, const Uint8* keys, const uint8_t *ma
 void Player::renderPlayer( SDL_Renderer *renderer )
 {
     SDL_FRect playerRect = {
-        position.x * WALL_SCALE - WALL_SCALE * 0.5f,
-        position.y * WALL_SCALE - WALL_SCALE * 0.5f,
+        (position.x * WALL_SCALE) - (WALL_SCALE * 0.5f),
+        (position.y * WALL_SCALE) - (WALL_SCALE * 0.5f),
         WALL_SCALE, WALL_SCALE
     };
 
@@ -76,12 +76,12 @@ void Player::renderRays( SDL_Renderer *renderer )
 
     for (int i = 0; i <= rays.size(); i++)
     {
-        int rayIndex = i - MAX_RAYS * 0.5f;
+        int rayIndex = i - (MAX_RAYS * 0.5f);
         float rayAngle = rotate + DEG2RAD(rayIndex / 4);
-        float rayDistance = rays[i];
+        float rayDistance = rays[i] * 0.2f;
 
-        float positionXDirection = position.x + cos( rayAngle );
-        float positionYDirection = position.y + sin( rayAngle );
+        float positionXDirection = position.x + cosf( rayAngle );
+        float positionYDirection = position.y + sinf( rayAngle );
 
         SDL_RenderDrawLineF(
             renderer,

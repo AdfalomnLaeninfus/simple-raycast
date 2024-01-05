@@ -19,7 +19,7 @@ class Player
     private:
         SDL_FPoint position;
 
-        float rotate;
+        float rotate = 0;
         float velocity = 6;
         float maxRotation = 180;
         std::vector<float> rays;
