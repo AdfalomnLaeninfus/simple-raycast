@@ -9,12 +9,12 @@ float Raycast( SDL_FPoint position, float rotate, const uint8_t *map )
 
     for (int i = 0; i < MAX_STEPS; i++)
     {
-        positionOffset.x += c;
-        positionOffset.y += s;
+        positionOffset.x += rotateCosAngle;
+        positionOffset.y += rotateSinAngle;
 
         if ( map_collision( map, positionOffset.x, positionOffset.y ) )
         {
-            while ( map_collision( map, pos.x, pos.y ) )
+            while ( map_collision( map, positionOffset.x, positionOffset.y ) )
             {
                 positionOffset.x -= rotateCosAngle * 0.01;
                 positionOffset.y -= rotateSinAngle * 0.01;
@@ -29,13 +29,13 @@ float Raycast( SDL_FPoint position, float rotate, const uint8_t *map )
     float directionXPowTwo = directionX * directionX;
     float directionYPowTwo = directionY * directionY;
 
-    return sqrt( directionXPow + directionYPow );
+    return sqrt( directionXPowTwo + directionYPowTwo );
 }
 
 void raycast_draw_rays( Player *player, SDL_Renderer *renderer ) {
-    for ( int i = 0; i <= player.getRayLength(); i++ )
+    for ( int i = 0; i <= player->getRayLength(); i++ )
     {
-        int colorIntensity = 128 / player.getRay( i ) + 25;
+        int colorIntensity = 128 / player->getRay( i ) + 25;
         int rayIndex = i - RAYS / 2;
 
         float halfHeight = HEIGHT * 0.5f;
