@@ -8,7 +8,7 @@ Player::Player(SDL_FPoint position, float rotate)
     rays.resize(RAYS);
 }
 
-void Player::update(const float dt, const Uint8* keys)
+void Player::update(const float dt, const Uint8* keys, const uint8_t *map)
 {
     rotate += (keys[SDL_SCANCODE_RIGHT] - keys[SDL_SCANCODE_LEFT]) * DEG2RAD(rotate_vel) * dt;
 
@@ -16,18 +16,18 @@ void Player::update(const float dt, const Uint8* keys)
     spd.x += (keys[SDL_SCANCODE_UP] - keys[SDL_SCANCODE_DOWN]) * cos(rotate) * vel * dt;
     spd.y += (keys[SDL_SCANCODE_UP] - keys[SDL_SCANCODE_DOWN]) * sin(rotate) * vel * dt;
     
-    if (map_collision(position.x + spd.x - 1, position.y - 1) == 0 && map_collision(position.x + spd.x + 1, position.y - 1) == 0 &&
-        map_collision(position.x + spd.x + 1, position.y + 1) == 0 && map_collision(position.x + spd.x - 1, position.y + 1) == 0)
+    if (map_collision(map, position.x + spd.x - 1, position.y - 1) == 0 && map_collision(map, position.x + spd.x + 1, position.y - 1) == 0 &&
+        map_collision(map, position.x + spd.x + 1, position.y + 1) == 0 && map_collision(map, position.x + spd.x - 1, position.y + 1) == 0)
         position.x += spd.x;
-    if (map_collision(position.x - 1, position.y + spd.y - 1) == 0 && map_collision(position.x + 1, position.y + spd.y - 1) == 0 &&
-        map_collision(position.x + 1, position.y + spd.y + 1) == 0 && map_collision(position.x - 1, position.y + spd.y + 1) == 0)
+    if (map_collision(map, position.x - 1, position.y + spd.y - 1) == 0 && map_collision(map, position.x + 1, position.y + spd.y - 1) == 0 &&
+        map_collision(map, position.x + 1, position.y + spd.y + 1) == 0 && map_collision(map, position.x - 1, position.y + spd.y + 1) == 0)
         position.y += spd.y;
 
     for (int i = 0; i <= RAYS; i++)
     {
         int id = i - RAYS / 2;
         float r = rotate + DEG2RAD(id / 4);
-        rays[i] = Raycast(position, r);
+        rays[i] = Raycast(position, r, map);
     }
 }
 

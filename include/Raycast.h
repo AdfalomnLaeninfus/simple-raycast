@@ -5,6 +5,6 @@
 
 #define MAX_STEPS 20
 
-float Raycast(SDL_FPoint position, float rotate);
+float Raycast( SDL_FPoint position, float rotate, const uint8_t *map );
 
 #endif

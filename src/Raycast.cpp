@@ -1,6 +1,6 @@
 #include <raycast.h>
 
-float Raycast(SDL_FPoint position, float rotate)
+float Raycast(SDL_FPoint position, float rotate, const uint8_t *map)
 {
     SDL_FPoint pos = position;
     float c = cos(rotate);
@@ -11,9 +11,9 @@ float Raycast(SDL_FPoint position, float rotate)
         pos.x += c;
         pos.y += s;
 
-        if (map_collision(pos.x, pos.y))
+        if (map_collision(map, pos.x, pos.y))
         {
-            while (map_collision(pos.x, pos.y))
+            while (map_collision(map, pos.x, pos.y))
             {
                 pos.x -= c * 0.01;
                 pos.y -= s * 0.01;

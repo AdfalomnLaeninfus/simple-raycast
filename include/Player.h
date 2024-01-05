@@ -6,10 +6,10 @@
 class Player
 {
     public:
-        Player(SDL_FPoint position, float rotate);
+        Player( SDL_FPoint position, float rotate );
 
-        void update(const float dt, const Uint8 *keys);
-        void render(SDL_Renderer* renderer);
+        void update( const float dt, const Uint8 *keys, const uint8_t *map );
+        void render( SDL_Renderer* renderer );
 
         std::vector<float> rays;
     private:
