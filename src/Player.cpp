@@ -10,7 +10,7 @@ SDL_FPoint Player::getPosition() const { return position; }
 int Player::getRayLength() { return rays.size(); }
 int Player::getRay( const int index ) { return rays[index]; }
 
-bool canMove( const uint8_t *map, float dirX, float dirY )
+bool Player::canMove( const uint8_t *map, float dirX, float dirY )
 {
     auto checkCollision = [&] ( float offsetX, float offsetY )
     {
