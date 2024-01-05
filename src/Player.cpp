@@ -2,7 +2,7 @@
 
 Player::Player(SDL_FPoint position, float rotate) : position( position ), rotate( rotate )
 {
-    rays.resize(RAYS);
+    rays.resize(MAX_RAYS);
 }
 
 SDL_FPoint Player::getPosition() const { return position; }
@@ -25,11 +25,11 @@ bool canMove( const uint8_t *map, float dirX, float dirY )
 
 void Player::updateRays( const uint8_t *map )
 {
-    for (int i = 0; i <= RAYS; i++)
+    for (int i = 0; i <= MAX_RAYS; i++)
     {
-        int id = i - RAYS / 2;
-        float r = rotate + DEG2RAD(id / 4);
-        rays[i] = Raycast( position, r, map );
+        int rayIndex = i - MAX_RAYS * 0.5f;
+        float rayAngle = rotate + DEG2RAD(rayIndex / 4);
+        rays[i] = Raycast( position, rayAngle, map );
     }
 }
 
@@ -63,9 +63,9 @@ void Player::update( const float dt, const Uint8* keys, const uint8_t *map )
 void Player::renderPlayer( SDL_Renderer *renderer )
 {
     SDL_FRect playerRect = {
-        position.x * SCALE - SCALE / 2,
-        position.y * SCALE - SCALE / 2,
-        SCALE, SCALE
+        position.x * WALL_SCALE - WALL_SCALE / 2,
+        position.y * WALL_SCALE - WALL_SCALE / 2,
+        WALL_SCALE, WALL_SCALE
     };
 
     SDL_RenderFillRectF(renderer, &playerRect);
@@ -77,16 +77,19 @@ void Player::renderRays( SDL_Renderer *renderer )
 
     for (int i = 0; i <= rays.size(); i++)
     {
-        int id = i - RAYS / 2;
-        float r = rotate + DEG2RAD(id / 4);
-        float dist = rays[i];
+        int rayIndex = i - MAX_RAYS * 0.5f;
+        float rayAngle = rotate + DEG2RAD(rayIndex / 4);
+        float rayDistance = rays[i];
+
+        float positionXDirection = position.x + cos( rayAngle );
+        float positionYDirection = position.y + sin( rayAngle );
 
         SDL_RenderDrawLineF(
             renderer,
-            position.x * SCALE,
-            position.y * SCALE,
-            (position.x + cos(r) * dist) * SCALE,
-            (position.y + sin(r) * dist) * SCALE
+            position.x * WALL_SCALE,
+            position.y * WALL_SCALE,
+            ( positionXDirection * rayDistance ) * WALL_SCALE,
+            ( positionYDirection * rayDistance ) * WALL_SCALE
         );
     }
 }
