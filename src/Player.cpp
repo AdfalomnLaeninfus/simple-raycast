@@ -8,7 +8,7 @@ Player::Player(SDL_FPoint position, float rotate)
     rays.resize(RAYS);
 }
 
-void Player::update(float dt)
+void Player::update(const float dt, const Uint8* keys)
 {
     rotate += (keys[SDL_SCANCODE_RIGHT] - keys[SDL_SCANCODE_LEFT]) * DEG2RAD(rotate_vel) * dt;
 
